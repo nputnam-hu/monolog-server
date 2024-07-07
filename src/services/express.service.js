@@ -1,11 +1,14 @@
 import express from "express";
+import cors from "cors";
 import fs from "fs";
 import bodyParser from "body-parser";
 import globalErrorHandler from "../middlewares/errorHandler.middleware";
-/*
-  body-parser: Parse incoming request bodies in a middleware before your handlers, 
-  available under the req.body property.
-*/
+
+const corsOptions = {
+  origin: "http://localhost:3000", // The address of your Next.js app
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
 
 const routeFiles = fs
   .readdirSync(__dirname + "/../routes/")
@@ -28,6 +31,8 @@ const expressService = {
 
       server = express();
       server.use(bodyParser.json());
+      server.use(cors(corsOptions));
+
       server.use(routes);
       server.use(globalErrorHandler);
       server.listen(process.env.SERVER_PORT);

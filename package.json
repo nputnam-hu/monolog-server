@@ -10,22 +10,33 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.310.0",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.3",
     "multer": "^1.4.4",
     "mysql2": "^3.9.8",
+    "openai": "^4.0.0",
     "pg": "^8.10.0",
     "sequelize": "^6.28.2",
     "uuid": "^9.0.0",
     "yup": "^1.0.0"
   },
   "devDependencies": {
+    "copy-paste": "^1.5.3",
+    "node": "^22.2.0",
     "nodemon": "^2.0.18",
     "sequelize-cli": "^6.4.1",
     "sucrase": "^3.23.0"
+  },
+  "engines": {
+    "node": "^22.2.0"
+  },
+  "overrides": {
+    "whatwg-url": "13.0.0"
   }
 }

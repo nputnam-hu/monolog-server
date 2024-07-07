@@ -57,7 +57,7 @@ Variables for the environment
 ## Commands for sequelize 
 ```bash
 # Creates the database
-yarn sequelize db:create 
+yarn sequelize db:create
 
 # Drops the database
 yarn sequelize db:drop 
