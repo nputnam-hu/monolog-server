@@ -2,33 +2,32 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable("Notes", {
+    queryInterface.createTable("Drafts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
+      initialMarkdownString: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
-      isLiked: {
+      processedMarkdownString: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.TEXT,
       },
-      audioUrl: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      duration: {
-        type: Sequelize.DECIMAL,
-      },
-      transcript: {
+      generatedRecommendedPrompts: {
         type: Sequelize.JSONB,
       },
-      activeDraftIdx: {
-        type: Sequelize.DECIMAL,
+      noteId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Notes", // name of the target model
+          key: "id", // key in the target model that we're referencing
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
@@ -42,5 +41,5 @@ module.exports = {
       },
     }),
 
-  down: (queryInterface) => queryInterface.dropTable("Notes"),
+  down: (queryInterface) => queryInterface.dropTable("Drafts"),
 };

@@ -1,15 +1,12 @@
 import Sequelize, { Model } from "sequelize";
 
-class Note extends Model {
+class Draft extends Model {
   static init(sequelize) {
     super.init(
       {
-        title: Sequelize.STRING,
-        audioUrl: Sequelize.STRING,
-        duration: Sequelize.DECIMAL,
-        transcript: Sequelize.JSONB,
-        isLiked: Sequelize.BOOLEAN,
-        activeDraftIdx: Sequelize.INTEGER,
+        initialMarkdownString: Sequelize.TEXT,
+        processedMarkdownString: Sequelize.TEXT,
+        generatedRecommendedPrompts: Sequelize.JSONB,
       },
       {
         sequelize,
@@ -17,7 +14,7 @@ class Note extends Model {
         //paranoid: true, //If it's true, it does not allow deleting from the bank, but inserts column deletedAt. Timestamps need be true.
         //underscored: true, //If it's true, does not add camelcase for automatically generated attributes, so if we define updatedAt it will be created as updated_at.
         //freezeTableName: false, //If it's false, it will use the table name in the plural. Ex: Users
-        tableName: "Notes", //Define table name
+        tableName: "Drafts", //Define table name
       }
     );
 
@@ -25,11 +22,16 @@ class Note extends Model {
   }
 
   static associate(models) {
-    Note.hasMany(models.Draft, {
-      foreignKey: "noteId", // This is the foreign key in the Post table
-      as: "drafts",
+    Draft.belongsTo(models.Note, {
+      foreignKey: "noteId",
+      as: "note",
+    });
+
+    Draft.hasMany(models.DocumentPrompt, {
+      foreignKey: "draftId",
+      as: "documentPrompts",
     });
   }
 }
 
-export default Note;
+export default Draft;

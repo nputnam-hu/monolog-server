@@ -2,28 +2,25 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable("Addresses", {
+    queryInterface.createTable("DocumentPrompts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      city: {
+      promptString: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
-      state: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      neighborhood: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      country: {
-        allowNull: false,
-        type: Sequelize.STRING,
+      draftId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Drafts", // name of the target model
+          key: "id", // key in the target model that we're referencing
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
       },
       createdAt: {
         allowNull: false,
@@ -37,5 +34,5 @@ module.exports = {
       },
     }),
 
-  down: (queryInterface) => queryInterface.dropTable("Addresses"),
+  down: (queryInterface) => queryInterface.dropTable("DocumentPrompts"),
 };

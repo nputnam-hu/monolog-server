@@ -5,10 +5,9 @@ class User extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
+        firstName: Sequelize.STRING,
+        lastName: Sequelize.STRING,
         email: Sequelize.STRING,
-        password: Sequelize.VIRTUAL, //When it is VIRTUAL it does not exist in the database
-        password_hash: Sequelize.STRING,
       },
       {
         sequelize,
@@ -29,12 +28,7 @@ class User extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.belongsToMany(models.Address, {
-      through: "UserAddress",
-      foreignKey: "userId",
-    });
-  }
+  static associate(models) {}
 
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);

@@ -4,8 +4,10 @@ import * as Yup from "yup";
 import OpenAI from "openai";
 import axios from "axios";
 
-import Address from "../models/Address";
 import Note from "../models/Note";
+import Draft from "../models/Draft";
+import DocumentPrompt from "../models/DocumentPrompt";
+import DocumentSuggestion from "../models/DocumentSuggestion";
 import {
   BadRequestError,
   UnauthorizedError,
@@ -97,7 +99,32 @@ let noteController = {
   },
   get: async (req, res, next) => {
     try {
-      const notes = await Note.findAll();
+      const notes = await Note.findAll({
+        include: [
+          {
+            model: Draft,
+            as: "drafts",
+            include: [
+              {
+                model: DocumentPrompt,
+                as: "documentPrompts",
+                include: [
+                  {
+                    model: DocumentSuggestion,
+                    as: "documentSuggestions",
+                    order: [["id", "ASC"]],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      console.log(
+        notes[0].drafts[0].documentPrompts[0].documentSuggestions.map(
+          (x) => x.id
+        )
+      );
       const augmentedNotes = notes.map((note) => {
         let paragraphs = [];
 
@@ -107,7 +134,6 @@ let noteController = {
           let numSentences = 0;
           let currentParagraph = [];
           for (const segment of note.transcript.segments) {
-            // console.log({ currentParagraph });
             if (segment.text.endsWith(".")) {
               numSentences++;
             }
@@ -121,12 +147,26 @@ let noteController = {
           }
         }
 
-        console.log({ paragraphs }, paragraphs[0]);
+        const noteJSON = note.toJSON();
+
+        if (noteJSON.drafts[0]) {
+          console.log(noteJSON.drafts[0]);
+          noteJSON.drafts[0].documentPrompts[0].documentSuggestions =
+            noteJSON.drafts[0].documentPrompts[0].documentSuggestions.sort(
+              (a, b) => a.id - b.id
+            );
+        }
         return {
-          ...note.toJSON(),
+          ...noteJSON,
           paragraphs,
         };
       });
+
+      console.log(
+        augmentedNotes[0].drafts[0].documentPrompts[0].documentSuggestions.map(
+          (x) => x.id
+        )
+      );
 
       return res.json({ notes: augmentedNotes });
     } catch (err) {
