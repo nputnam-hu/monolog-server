@@ -11,7 +11,7 @@ draftRoutes.post(
   "/draft/suggestion/:documentSuggestionId/accept",
   draftController.acceptDocumentSuggestion
 );
-draftRoutes.post("/draft", draftController.add);
 // draftRoutes.get("/draft", noteController.get);
+draftRoutes.post("/draft", draftController.add);
 
 export { draftRoutes };
