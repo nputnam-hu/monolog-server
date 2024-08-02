@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import databaseConfig from "../config/database.mjs";
-import fs from "fs";
 import path from "path";
+import fs from "fs";
 const __dirname = path.resolve();
 
 const modelFiles = fs
