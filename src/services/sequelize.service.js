@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import databaseConfig from "../config/database.js";
+import databaseConfig from "../config/database.mjs";
 import fs from "fs";
 
 const modelFiles = fs

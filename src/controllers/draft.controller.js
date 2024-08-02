@@ -3,16 +3,16 @@ import * as Yup from "yup";
 import OpenAI from "openai";
 import axios from "axios";
 
-import Note from "../models/Note.js";
-import Draft from "../models/Draft.js";
-import DocumentPrompt from "../models/DocumentPrompt.js";
-import DocumentSuggestion from "../models/DocumentSuggestion.js";
+import Note from "../models/Note..mjs";
+import Draft from "../models/Draft.mjs";
+import DocumentPrompt from "../models/DocumentPrompt.mjs";
+import DocumentSuggestion from "../models/DocumentSuggestion.mjs";
 import {
   BadRequestError,
   UnauthorizedError,
   ValidationError,
-} from "../utils/ApiError.js";
-import { generateSuggestions } from "../services/openai.service.js";
+} from "../utils/ApiError.mjs";
+import { generateSuggestions } from "../services/openai.service.mjs";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -106,21 +106,21 @@ let draftController = {
         draftId: newDraft.id,
       });
 
-      const suggestionsJSON = await generateSuggestions({
+      const suggestion.mjsON = await generateSuggestions({
         promptString,
         draftMarkdownString: newDraft.processedMarkdownString,
       });
 
-      console.log({ suggestionsJSON });
+      console.log({ suggestion.mjsON });
 
       await DocumentSuggestion.bulkCreate(
-        suggestionsJSON.map((o) => ({
+        suggestion.mjsON.map((o) => ({
           ...o,
           documentPromptId: newDocumentPrompt.id,
         }))
       );
 
-      return res.json({ draft: newDraft });
+      return res.mjson({ draft: newDraft });
     } catch (err) {
       console.log({ err });
       return next(err);

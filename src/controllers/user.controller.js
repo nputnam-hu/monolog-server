@@ -1,10 +1,10 @@
 import * as Yup from "yup";
-import User from "../models/User.js";
+import User from "../models/User.mjs";
 import {
   BadRequestError,
   UnauthorizedError,
   ValidationError,
-} from "../utils/ApiError.js";
+} from "../utils/ApiError.mjs";
 
 //Yup is a JavaScript schema builder for value parsing and validation.
 
@@ -21,7 +21,7 @@ let userController = {
     try {
       const users = await User.findAll();
 
-      return res.status(200).json(users);
+      return res.status(200).mjson(users);
     } catch (error) {
       next(error);
     }
@@ -34,7 +34,7 @@ let userController = {
 
       if (!user) throw new BadRequestError();
 
-      return res.status(200).json(user);
+      return res.status(200).mjson(user);
     } catch (error) {
       next(error);
     }
@@ -56,7 +56,7 @@ let userController = {
 
       user.destroy();
 
-      return res.status(200).json({ msg: "Deleted" });
+      return res.status(200).mjson({ msg: "Deleted" });
     } catch (error) {
       next(error);
     }

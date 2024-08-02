@@ -1,5 +1,5 @@
 import { Router } from "express";
-import draftController from "../controllers/draft.controller.js";
+import draftController from "../controllers/draft.controller.mjs";
 
 const draftRoutes = Router();
 draftRoutes.post("/draft/documentprompt", draftController.addDocumentPrompt);

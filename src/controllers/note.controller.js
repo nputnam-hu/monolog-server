@@ -2,10 +2,10 @@ import fs from "fs";
 import path from "path";
 import * as Yup from "yup";
 
-import Note from "../models/Note.js";
-import Draft from "../models/Draft.js";
-import DocumentPrompt from "../models/DocumentPrompt.js";
-import DocumentSuggestion from "../models/DocumentSuggestion.js";
+import Note from "../models/Note.mjs";
+import Draft from "../models/Draft.mjs";
+import DocumentPrompt from "../models/DocumentPrompt.mjs";
+import DocumentSuggestion from "../models/DocumentSuggestion.mjs";
 import {
   BadRequestError,
   UnauthorizedError,
@@ -38,7 +38,7 @@ let noteController = {
 
       fs.unlinkSync(tmpPath);
 
-      return res.json({ note });
+      return res.mjson({ note });
     } catch (error) {
       next(error);
     }
@@ -88,15 +88,15 @@ let noteController = {
           }
         }
 
-        const noteJSON = note.toJSON();
+        const not.mjsON = note.t.mjsON();
 
         return {
-          ...noteJSON,
+          ...not.mjsON,
           paragraphs,
         };
       });
 
-      return res.json({ notes: augmentedNotes });
+      return res.mjson({ notes: augmentedNotes });
     } catch (err) {
       next(err);
     }
