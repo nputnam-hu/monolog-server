@@ -6,7 +6,7 @@
   "author": "gadfaria <gadfaria@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node dist/index.js",
     "dev": "nodemon src/index.js",
     "reset-db": "yarn sequelize db:drop && yarn sequelize db:create && yarn sequelize db:migrate && yarn sequelize db:seed:all"
   },
