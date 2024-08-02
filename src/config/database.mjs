@@ -14,6 +14,7 @@ export default {
   production: {
     use_env_variable: "DATABASE_URL",
     dialect: "postgres",
+    host: process.env.DATABASE_HOST,
     dialectOptions: {
       ssl: {
         require: true,
