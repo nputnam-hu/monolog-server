@@ -2703,7 +2703,7 @@ seq-queue@^0.0.5:
   resolved "https://registry.yarnpkg.com/seq-queue/-/seq-queue-0.0.5.tgz#d56812e1c017a6e4e7c3e3a37a1da6d78dd3c93e"
   integrity sha512-hr3Wtp/GZIc/6DAGPDcV4/9WoZhjrkXsi5B/07QgX8tsdc6ilr7BFM6PM6rbdAX1kFSDYeZGLipIZZKyQP0O5Q==
 
-sequelize-cli@^6.4.1:
+sequelize-cli@^6.6.2:
   version "6.6.2"
   resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-6.6.2.tgz#8d838b25c988cf136914cdc3843e19d88c3dcb67"
   integrity sha512-V8Oh+XMz2+uquLZltZES6MVAD+yEnmMfwfn+gpXcDiwE3jyQygLt4xoI0zG8gKt6cRcs84hsKnXAKDQjG/JAgg==
