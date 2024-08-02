@@ -34,7 +34,7 @@ const expressService = {
       server.use(noteRoutes);
       server.use(draftRoutes);
       // server.use(globalErrorHandler);
-      server.listen(process.env.SERVER_PORT, () => {
+      server.listen(process.env.PORT, () => {
         console.log(
           `[EXPRESS] Express initialized on port ${process.env.SERVER_PORT}`
         );
