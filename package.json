@@ -25,6 +25,7 @@
     "mysql2": "^3.9.8",
     "openai": "^4.0.0",
     "pg": "^8.10.0",
+    "pg-connection-string": "^2.6.4",
     "sequelize": "^6.28.2",
     "uuid": "^9.0.0",
     "yup": "^1.0.0"

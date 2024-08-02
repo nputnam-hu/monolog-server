@@ -12,9 +12,12 @@ export default {
     },
   },
   production: {
-    use_env_variable: "DATABASE_URL",
+    // use_env_variable: "DATABASE_URL",
     dialect: "postgres",
-    // host: process.env.DATABASE_HOST,
+    host: process.env.DB_HOST,
+    username: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
     dialectOptions: {
       ssl: {
         require: true,
