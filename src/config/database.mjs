@@ -12,6 +12,7 @@ export default {
     },
   },
   production: {
+    dialect: "postgres",
     databaseURL: process.env.DATABASE_URL,
   },
 };
