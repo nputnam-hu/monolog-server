@@ -10,6 +10,8 @@ const modelFiles = fs
 
 const config = databaseConfig[process.env.NODE_ENV];
 
+console.log(Object.keys(config));
+
 const sequelizeService = {
   init: async () => {
     try {
