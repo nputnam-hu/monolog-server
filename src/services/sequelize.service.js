@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import databaseConfig from "../config/database";
+import databaseConfig from "../config/database.js";
 import fs from "fs";
 
 const modelFiles = fs
@@ -14,7 +14,7 @@ const sequelizeService = {
       /*
         Loading models automatically
       */
-     
+
       for (const file of modelFiles) {
         const model = await import(`../models/${file}`);
         model.default.init(connection);

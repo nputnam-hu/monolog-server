@@ -35,12 +35,12 @@ module.exports = {
     // Insert data into the table
     await queryInterface.bulkInsert("Notes", notes, {});
     await queryInterface.bulkInsert("Drafts", drafts, {});
-    await queryInterface.bulkInsert("DocumentPrompts", documentPrompts, {});
-    await queryInterface.bulkInsert(
-      "DocumentSuggestions",
-      documentSuggestions,
-      {}
-    );
+    // await queryInterface.bulkInsert("DocumentPrompts", documentPrompts, {});
+    // await queryInterface.bulkInsert(
+    //   "DocumentSuggestions",
+    //   documentSuggestions,
+    //   {}
+    // );
   },
 
   async down(queryInterface, Sequelize) {

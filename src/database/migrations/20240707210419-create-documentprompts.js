@@ -5,16 +5,16 @@ module.exports = {
     queryInterface.createTable("DocumentPrompts", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       promptString: {
         allowNull: false,
         type: Sequelize.TEXT,
       },
       draftId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: "Drafts", // name of the target model
           key: "id", // key in the target model that we're referencing

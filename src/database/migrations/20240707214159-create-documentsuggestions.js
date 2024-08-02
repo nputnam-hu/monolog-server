@@ -5,20 +5,17 @@ module.exports = {
     queryInterface.createTable("DocumentSuggestions", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       modelResponseRaw: {
-        allowNull: false,
         type: Sequelize.TEXT,
       },
       suggestionHeader: {
-        allowNull: false,
         type: Sequelize.TEXT,
       },
       suggestionDescription: {
-        allowNull: false,
         type: Sequelize.TEXT,
       },
       documentDiffRaw: {
@@ -33,12 +30,11 @@ module.exports = {
         defaultValue: "pending",
       },
       statusUpdatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
       },
       documentPromptId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: "DocumentPrompts", // name of the target model
           key: "id", // key in the target model that we're referencing

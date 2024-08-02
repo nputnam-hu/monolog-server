@@ -27,9 +27,9 @@ class Draft extends Model {
       as: "note",
     });
 
-    Draft.hasMany(models.DocumentPrompt, {
+    Draft.hasOne(models.DocumentPrompt, {
       foreignKey: "draftId",
-      as: "documentPrompts",
+      as: "documentPrompt",
     });
   }
 }

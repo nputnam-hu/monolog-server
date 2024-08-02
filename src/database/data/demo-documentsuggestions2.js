@@ -1,6 +1,6 @@
 module.exports = [
   {
-    id: 4,
+    id: "fd3b03c1-a57f-48d7-9873-5d456bd646b2",
     modelResponseRaw: ``,
     suggestionHeader: `Suggestion 1`,
     suggestionDescription: `In the "Draft Generation for Writers" section, add concrete data on the number of drafts or content pieces a typical writer produces daily. This gives a quantitative context for the workflow's relevance.`,
@@ -22,7 +22,7 @@ module.exports = [
     updatedAt: new Date(),
   },
   {
-    id: 5,
+    id: "58b40234-739d-4c09-a9a1-e89d30c4d459",
     modelResponseRaw: ``,
     suggestionHeader: `Suggestion 2`,
     suggestionDescription: `In the "Transcription and Processing" section, include specific data on the accuracy rate of NLP algorithms. This adds credibility and precision to the functional capabilities of the tool.`,
@@ -44,7 +44,7 @@ module.exports = [
     updatedAt: new Date(),
   },
   {
-    id: 6,
+    id: "6e110a52-997b-4f03-a69b-0faef068c126",
     modelResponseRaw: ``,
     suggestionHeader: `Suggestion 3`,
     suggestionDescription: `In the "Alpha Release" section, add quantitative goals for the initial user base size based on market research. This provides a concrete target and enhances the project's feasibility.`,

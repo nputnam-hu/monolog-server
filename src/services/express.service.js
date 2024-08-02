@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import bodyParser from "body-parser";
-import globalErrorHandler from "../middlewares/errorHandler.middleware";
+import globalErrorHandler from "../middlewares/errorHandler.middleware.js";
 
 const corsOptions = {
   origin: "http://localhost:3000", // The address of your Next.js app

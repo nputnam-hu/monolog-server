@@ -1,16 +1,18 @@
 import * as Diff from "diff";
+import * as Yup from "yup";
 import OpenAI from "openai";
 import axios from "axios";
 
-import Note from "../models/Note";
-import Draft from "../models/Draft";
-import DocumentPrompt from "../models/DocumentPrompt";
-import DocumentSuggestion from "../models/DocumentSuggestion";
+import Note from "../models/Note.js";
+import Draft from "../models/Draft.js";
+import DocumentPrompt from "../models/DocumentPrompt.js";
+import DocumentSuggestion from "../models/DocumentSuggestion.js";
 import {
   BadRequestError,
   UnauthorizedError,
   ValidationError,
-} from "../utils/ApiError";
+} from "../utils/ApiError.js";
+import { generateSuggestions } from "../services/openai.service.js";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -22,7 +24,7 @@ async function syncDraftMarkdownDoc(draftId) {
     include: [
       {
         model: DocumentPrompt,
-        as: "documentPrompts",
+        as: "documentPrompt",
         include: [
           {
             model: DocumentSuggestion,
@@ -40,18 +42,16 @@ async function syncDraftMarkdownDoc(draftId) {
     throw new Error("Not found: " + draftId);
   }
 
-  if (draft.documentPrompts.length === 0) {
+  if (!draft.documentPrompt) {
     draft.processedMarkdownString = draft.initialMarkdownString;
     await draft.save();
     return;
   }
 
   const initialDocument = draft.initialMarkdownString;
-  const documentDiffs = draft.documentPrompts[0].documentSuggestions
+  const documentDiffs = draft.documentPrompt.documentSuggestions
     .map((documentSuggestion) => documentSuggestion.documentDiffStructured)
     .flat();
-
-  // console.log({ documentDiffs });
 
   let patchedDocument = initialDocument;
 
@@ -60,28 +60,7 @@ async function syncDraftMarkdownDoc(draftId) {
       diff.remove.value,
       diff.add.value
     );
-    // if (diff.added) {
-    //   // console.log({ addedLen: diff.value.length });
-    //   patchedDocument = Diff.applyPatch(patchedDocument, [
-    //     { value: diff.value, offset, removed: 0 },
-    //   ]);
-    //   offset += diff.value.length;
-    // } else if (diff.removed) {
-    //   // console.log({ offset, value: diff.value });
-    //   console.log({ removedLen: diff.value.length });
-    //   patchedDocument = Diff.applyPatch(patchedDocument, [
-    //     { value: diff.value, offset, removed: diff.value.length },
-    //   ]);
-    //   // offset -= diff.value.length;
-    // }
   });
-
-  console.log({ patchedDocument });
-
-  // Append remaining content if any
-  // if (offset < patchedDocument.length) {
-  //   patchedDocument += initialDocument.substring(offset);
-  // }
 
   draft.processedMarkdownString = patchedDocument;
   await draft.save();
@@ -91,6 +70,61 @@ async function syncDraftMarkdownDoc(draftId) {
 let draftController = {
   add: async (req, res, next) => {
     return res.sendStatus(200);
+  },
+  addDocumentPrompt: async (req, res, next) => {
+    try {
+      console.log(req.body);
+      const schema = Yup.object().shape({
+        noteId: Yup.number().required(),
+        promptString: Yup.string().required(),
+      });
+
+      if (!(await schema.isValid(req.body))) {
+        // throw new ValidationError();
+      }
+
+      const { noteId, promptString } = req.body.data;
+
+      const note = await Note.findByPk(noteId, {
+        include: [{ model: Draft, as: "drafts", order: ["createdAt", "DESC"] }],
+      });
+
+      console.log({ note, noteId });
+
+      const [currentDraft] = note.drafts;
+
+      console.log({ currentDraft });
+
+      const newDraft = await Draft.create({
+        initialMarkdownString: currentDraft.processedMarkdownString,
+        processedMarkdownString: currentDraft.processedMarkdownString,
+        noteId,
+      });
+
+      const newDocumentPrompt = await DocumentPrompt.create({
+        promptString,
+        draftId: newDraft.id,
+      });
+
+      const suggestionsJSON = await generateSuggestions({
+        promptString,
+        draftMarkdownString: newDraft.processedMarkdownString,
+      });
+
+      console.log({ suggestionsJSON });
+
+      await DocumentSuggestion.bulkCreate(
+        suggestionsJSON.map((o) => ({
+          ...o,
+          documentPromptId: newDocumentPrompt.id,
+        }))
+      );
+
+      return res.json({ draft: newDraft });
+    } catch (err) {
+      console.log({ err });
+      return next(err);
+    }
   },
   rejectDocumentSuggestion: async (req, res, next) => {
     try {

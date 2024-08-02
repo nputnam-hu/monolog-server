@@ -1,8 +1,8 @@
 import { Router } from "express";
-import draftController from "../controllers/draft.controller";
+import draftController from "../controllers/draft.controller.js";
 
 const draftRoutes = Router();
-draftRoutes.post("/draft", draftController.add);
+draftRoutes.post("/draft/documentprompt", draftController.addDocumentPrompt);
 draftRoutes.post(
   "/draft/suggestion/:documentSuggestionId/reject",
   draftController.rejectDocumentSuggestion

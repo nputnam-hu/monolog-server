@@ -1,6 +1,6 @@
 module.exports = [
   {
-    id: 1,
+    id: "aa1e760d-53f5-4dad-82f9-0abfe117be0b",
     modelResponseRaw: ``,
     suggestionHeader: `Streamline the introduction`,
     suggestionDescription: `Eliminate redundancy and tighten the introductory paragraph to quickly establish the thesis.`,
@@ -26,7 +26,7 @@ module.exports = [
     updatedAt: new Date(),
   },
   {
-    id: 2,
+    id: "d4c7cb6c-d732-49f8-8bdb-aabd59304003",
     modelResponseRaw: ``,
     suggestionHeader: `Condense the section on venture capital and private equity`,
     suggestionDescription: `Combine related ideas to reduce wordiness while maintaining essential details.`,
@@ -65,7 +65,7 @@ module.exports = [
     updatedAt: new Date(),
   },
   {
-    id: 3,
+    id: "08f6ca9d-2d98-4b3b-a95f-4b769c2f1472",
     modelResponseRaw: ``,
     suggestionHeader: `Tighten the section on middle market challenges`,
     suggestionDescription: `Merge sentences and eliminate extraneous details to convey the challenges and strategies concisely.`,

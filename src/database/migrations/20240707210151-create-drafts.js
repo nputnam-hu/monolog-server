@@ -1,13 +1,15 @@
 "use strict";
 
+const { DataTypes } = require("sequelize");
+
 module.exports = {
   up: (queryInterface, Sequelize) =>
     queryInterface.createTable("Drafts", {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       initialMarkdownString: {
         allowNull: false,
@@ -21,7 +23,7 @@ module.exports = {
         type: Sequelize.JSONB,
       },
       noteId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUID,
         references: {
           model: "Notes", // name of the target model
           key: "id", // key in the target model that we're referencing
