@@ -8,10 +8,12 @@ const modelFiles = fs
   .readdirSync(__dirname + "/src/models/")
   .filter((file) => file.endsWith(".mjs"));
 
+const config = databaseConfig[process.env.NODE_ENV];
+
 const sequelizeService = {
   init: async () => {
     try {
-      let connection = new Sequelize(databaseConfig);
+      let connection = new Sequelize(config);
 
       /*
         Loading models automatically
