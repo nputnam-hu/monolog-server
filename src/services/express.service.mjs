@@ -11,7 +11,7 @@ const __dirname = path.resolve();
 console.log("Resolved __dirname:", __dirname);
 
 const corsOptions = {
-  origin: "https://monolog-server-bc1532d12299.herokuapp.com",
+  origin: "https://app.monologai.com",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
