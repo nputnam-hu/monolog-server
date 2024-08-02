@@ -1,10 +1,12 @@
 import { Sequelize } from "sequelize";
 import databaseConfig from "../config/database.mjs";
 import fs from "fs";
+import path from "path";
+const __dirname = path.resolve();
 
 const modelFiles = fs
-  .readdirSync(__dirname + "/../models/")
-  .filter((file) => file.endsWith(".js"));
+  .readdirSync(__dirname + "/src/models/")
+  .filter((file) => file.endsWith(".mjs"));
 
 const sequelizeService = {
   init: async () => {

@@ -10,8 +10,8 @@ import {
   BadRequestError,
   UnauthorizedError,
   ValidationError,
-} from "../utils/ApiError";
-import { transcribeAudioFile } from "../services/openai.service";
+} from "../utils/ApiError.mjs";
+import { transcribeAudioFile } from "../services/openai.service.mjs";
 
 let noteController = {
   add: async (req, res, next) => {
@@ -38,7 +38,7 @@ let noteController = {
 
       fs.unlinkSync(tmpPath);
 
-      return res.mjson({ note });
+      return res.json({ note });
     } catch (error) {
       next(error);
     }
@@ -88,15 +88,15 @@ let noteController = {
           }
         }
 
-        const not.mjsON = note.t.mjsON();
+        const noteJSON = note.toJSON();
 
         return {
-          ...not.mjsON,
+          ...noteJSON,
           paragraphs,
         };
       });
 
-      return res.mjson({ notes: augmentedNotes });
+      return res.json({ notes: augmentedNotes });
     } catch (err) {
       next(err);
     }

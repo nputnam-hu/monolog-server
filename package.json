@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/index.mjs",
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon src/index.mjs",
     "reset-db": "yarn sequelize db:drop && yarn sequelize db:create && yarn sequelize db:migrate && yarn sequelize db:seed:all"
   },
   "dependencies": {

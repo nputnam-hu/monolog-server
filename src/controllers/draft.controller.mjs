@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import OpenAI from "openai";
 import axios from "axios";
 
-import Note from "../models/Note..mjs";
+import Note from "../models/Note.mjs";
 import Draft from "../models/Draft.mjs";
 import DocumentPrompt from "../models/DocumentPrompt.mjs";
 import DocumentSuggestion from "../models/DocumentSuggestion.mjs";
@@ -106,21 +106,21 @@ let draftController = {
         draftId: newDraft.id,
       });
 
-      const suggestion.mjsON = await generateSuggestions({
+      const suggestionsJSON = await generateSuggestions({
         promptString,
         draftMarkdownString: newDraft.processedMarkdownString,
       });
 
-      console.log({ suggestion.mjsON });
+      console.log({ suggestionsJSON });
 
       await DocumentSuggestion.bulkCreate(
-        suggestion.mjsON.map((o) => ({
+        suggestionsJSON.map((o) => ({
           ...o,
           documentPromptId: newDocumentPrompt.id,
         }))
       );
 
-      return res.mjson({ draft: newDraft });
+      return res.json({ draft: newDraft });
     } catch (err) {
       console.log({ err });
       return next(err);
