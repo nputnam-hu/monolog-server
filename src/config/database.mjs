@@ -14,6 +14,6 @@ export default {
   production: {
     dialect: "postgres",
     databaseURL: process.env.DATABASE_URL,
-    host: "https://monolog-server-bc1532d12299.herokuapp.com",
+    host: "monolog-server-bc1532d12299.herokuapp.com",
   },
 };
